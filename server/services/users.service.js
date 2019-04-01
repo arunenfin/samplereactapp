@@ -21,18 +21,19 @@ module.exports.getUserById = (params) => {
 
 module.exports.updateUserById = (params) => {
   return new Promise((resolve, reject) => {
-    let keys = '';
+    let keys = [];
     let values = [];
 
     for(let x in params) {
       if(x !== 'id') {
-        keys += `${x} = ? `;
+        keys.push(`${x} = ?`);
+        values.push(params[x]);
       }
-      values.push(params[x]);
     }
+    values.push(params.id);
 
-    db.run(`UPDATE Users SET ${keys} WHERE id = ?`, values, (err) => {
-      if(err) { return reject('Failed to update!'); }
+    db.run(`UPDATE Users SET ${keys.join(', ')} WHERE rowid = ?`, values, (err) => {
+      if(err) { return reject(); }
 
       resolve();
     });

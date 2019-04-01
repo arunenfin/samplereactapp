@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Dashboard from './components/Dashboard';
 import UsersList from './components/UsersList';
+import UserEdit from './components/UserEdit';
 import NotFound from './components/NotFound';
 import ProtectedRoute from './components/ProtectedRoute';
 import jwtDecode from 'jwt-decode';
@@ -27,6 +28,7 @@ class App extends Component {
           <Route exact path='/' component={Login} />
           <Route path='/logout' component={Logout} />
           <ProtectedRoute path='/dashboard' component={Dashboard} />
+          <ProtectedRoute path='/users/:id' component={UserEdit} />
           <ProtectedRoute path='/users' component={UsersList} />
           <Route component={NotFound} />
         </Switch>
